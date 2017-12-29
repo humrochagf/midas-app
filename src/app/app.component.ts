@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ApiService } from './api.service';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,11 +7,7 @@ import { ApiService } from './api.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private apiService: ApiService) { }
+  constructor() { }
 
-  ngOnInit() {
-    this.apiService.getBoards().subscribe(result => {
-      console.log(result);
-    });
-  }
+  ngOnInit() { }
 }
