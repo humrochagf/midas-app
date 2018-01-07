@@ -28,6 +28,10 @@ export class AuthService {
     localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
   }
 
+  get token(): string {
+    return localStorage.getItem('token');
+  }
+
   login(username: string, password: string) {
     return this.http.post(
       this.apiRoot.concat('login/'),
@@ -39,6 +43,15 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('user_id');
     localStorage.removeItem('expires_at');
+  }
+
+  refreshToken() {
+    if (moment().isBetween(this.getExpiration().subtract(1, 'days'), this.getExpiration())) {
+      return this.http.post(
+        this.apiRoot.concat('refresh-token/'),
+        { token: this.token }
+      ).do(response => this.setSession(response)).shareReplay().subscribe();
+    }
   }
 
   getExpiration() {
@@ -82,6 +95,8 @@ export class AuthGuard implements CanActivate {
 
   canActivate() {
     if (this.authService.isLoggedIn()) {
+      this.authService.refreshToken();
+
       return true;
     } else {
       this.router.navigate(['login']);
