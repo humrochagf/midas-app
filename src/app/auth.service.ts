@@ -21,7 +21,7 @@ export class AuthService {
   private setSession(authResult) {
     const token = authResult.token;
     const payload = <JWTPayload> jwt.decode(token);
-    const expiresAt = moment().add(payload.exp, 'second');
+    const expiresAt = moment.unix(payload.exp);
 
     localStorage.setItem('token', authResult.token);
     localStorage.setItem('user_id', JSON.stringify(payload.user_id));
