@@ -8,7 +8,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from './api.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthService, AuthInterceptor } from './auth.service';
+import { AuthService, AuthInterceptor, AuthGuard } from './auth.service';
+import { BoardListComponent } from './board/board-list/board-list.component';
+import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 
@@ -18,6 +20,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     AppComponent,
     LoginComponent,
     NavbarComponent,
+    HomeComponent,
+    BoardListComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +36,7 @@ import { NavbarComponent } from './navbar/navbar.component';
   providers: [
     ApiService,
     AuthService,
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
