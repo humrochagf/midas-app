@@ -25,11 +25,16 @@ export class AuthService {
 
     localStorage.setItem('token', authResult.token);
     localStorage.setItem('user_id', JSON.stringify(payload.user_id));
+    localStorage.setItem('user_username', JSON.stringify(payload.username));
     localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
   }
 
   get token(): string {
     return localStorage.getItem('token');
+  }
+
+  get username(): string {
+    return JSON.parse(localStorage.getItem('user_username'));
   }
 
   login(username: string, password: string) {
@@ -42,6 +47,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user_id');
+    localStorage.removeItem('user_username');
     localStorage.removeItem('expires_at');
   }
 
@@ -99,6 +105,7 @@ export class AuthGuard implements CanActivate {
 
       return true;
     } else {
+      this.authService.logout();
       this.router.navigate(['login']);
 
       return false;

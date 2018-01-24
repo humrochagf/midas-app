@@ -13,6 +13,7 @@ import { BoardListComponent } from './board/board-list/board-list.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     NavbarComponent,
     HomeComponent,
     BoardListComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

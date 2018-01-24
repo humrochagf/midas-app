@@ -1,14 +1,25 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" routerLink="/">Midas</a>
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav mr-auto">
       <a class="nav-item nav-link" routerLink="/boards">Boards</a>
     </div>
+
     <div class="navbar-nav">
-      <a class="nav-item nav-link" routerLink="/login">Login</a>
+      <div ngbDropdown placement="bottom-right" class="d-inline-block">
+        <a class="nav-item nav-link user-dropdown" id="userDropdown" ngbDropdownToggle><ng-container *ngIf="!isLoggedIn">User</ng-container><ng-container *ngIf="isLoggedIn">{{ username }}</ng-container></a>
+
+        <div ngbDropdownMenu aria-labelledby="userDropdown">
+          <a *ngIf="!isLoggedIn" class="dropdown-item" routerLink="/login">Login</a>
+
+          <a *ngIf="isLoggedIn" class="dropdown-item" routerLink="/logout">Logout</a>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
