@@ -12,6 +12,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
+  loginErrors: LoginErrors;
 
   constructor(
     private authService: AuthService,
@@ -35,9 +36,15 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['boards']);
         },
         error => {
-          console.log(error);
+          this.loginErrors = <LoginErrors> error.error;
         }
       );
     }
   }
+}
+
+interface LoginErrors {
+  global: string[];
+  username: string[];
+  password: string[];
 }

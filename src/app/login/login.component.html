@@ -4,16 +4,28 @@
       <fieldset>
         <legend class="text-center">Login</legend>
 
-        <div class="form-group">
-          <label for="username">Username</label>
-
-          <input class="form-control" type="username" name="username" formControlName="username">
+        <div *ngIf="loginErrors?.global" class="alert alert-danger" role="alert">
+          <p *ngFor="let error of loginErrors.global">{{ error }}</p>
         </div>
 
         <div class="form-group">
-          <label for="password">Password</label>
+          <label for="username" i18n>Username</label>
 
-          <input class="form-control" type="password" name="password" formControlName="password">
+          <input class="form-control" [class.is-invalid]="form.controls.username.touched && !form.controls.username.valid" type="username" name="username" formControlName="username">
+
+          <div class="invalid-feedback" i18n>
+            This field is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password" i18n>Password</label>
+
+          <input class="form-control" [class.is-invalid]="form.controls.password.touched && !form.controls.password.valid" type="password" name="password" formControlName="password">
+
+          <div class="invalid-feedback" i18n>
+            This field is required.
+          </div>
         </div>
       </fieldset>
 
